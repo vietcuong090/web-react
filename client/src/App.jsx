@@ -8,7 +8,7 @@ function App() {
 
   return (
     <main>
-      <p>Ecommerce demo</p>
+      <p>Ecommerce asd</p>
     </main>
   );
 }
