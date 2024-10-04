@@ -1,18 +1,19 @@
-import Container from "./ui/Container";
-import Footer from "./ui/Footer";
-import Header from "./ui/Header"
-
+import BannerCategories from './ui/BannerCategories';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import HomeBanner from './ui/HomeBanner';
+import Hightlights from './ui/Hightlights';
+import Categories from './ui/Categories';
 
 function App() {
   return (
-    
     <main>
-       <Container>
-        <p>Ecommerce demo</p>
-       </Container>
-       </main>
-    
+      <BannerCategories />
+      <HomeBanner />
+      <Hightlights />
+      <Categories />
+    </main>
   );
 }
 
-export default App
+export default App;

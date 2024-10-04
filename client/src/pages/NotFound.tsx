@@ -1,11 +1,12 @@
 import { HiBookOpen, 
-  HiminiQueueList,
+  HiMiniQueueList,
   HiBookmarkSquare, 
   HiRss,} from "react-icons/hi2"
   import  {LuChevronRight} from "react-icons/lu"
   import { useLocation } from "react-router-dom"
   import Container from "../ui/Container"
-  import LinkButton from "../ui/LinkButton"
+import LinkButton from "../ui/LinkButton"
+  // import LinkButton from "../ui/LinkButton"
 
   const links = [
     {
@@ -18,7 +19,7 @@ import { HiBookOpen,
       name: "Shop",
       href: "/shop",
       description: "Maximum collections of shopping products.",
-      icon: HiminiQueueList
+      icon: HiMiniQueueList
     },
     {
       name: "My Account",
@@ -56,32 +57,41 @@ import { HiBookOpen,
             <div className="mx-auto mt-6 flow-root max-w-lg">
               <h2 className="sr-only">Popular pages</h2>
               <ul role="list" className="divide-y divide-gray-900/5 border-b border-gray-900/5 lfex flex-none">
-                {links.map((link, linkIdx) => (
-                  <li key={linkIdx} className="relative flex gap-x-6 py-4 hover:bg-skyText/20 px-4 rounded-md">
-                    <div className="flx h-10 w-10 flex-none items-center iustify-center rounded-md">
-                      <link.icon 
-                      className="h-6 w-6 text-skyText"
-                      aria-hidden="true" />
-                    </div>
-                    <div className="flex-auto">
-                      <h3 className="text-sm font-semibold leading-6 text-gray-900">
-                        <a href={link.href}>
-                          <span className="absolute inset-0"
-                          aria-hidden="true" />
-                            {link.name}                       
-                        </a>
-                      </h3>
-                      <p className="mt-2 text-sm leading-6 text-gray-600">
-                        {link.description}
-                      </p>
-                    </div>
-                    <div className="flex-none self-center">
-                      <LuChevronRight className="h-5 w-5 text-gray-400"
-                      aria-hidden="true" />
-                    </div>
-                  </li>
-                ))}
+                {links.map((link, linkIdx) => {
+                  const Icon= link.icon
+                  return (
+                    <li key={linkIdx} className="relative flex gap-x-6 py-4 hover:bg-skyText/20 px-4 rounded-md">
+                      <div className="flx h-10 w-10 flex-none items-center iustify-center rounded-md">
+                        <span className="inline-block h-6 w-6 text-skyText"
+                        aria-hidden="true">
+                        <Icon   />
+                        </span>
+                      </div>
+                      <div className="flex-auto">
+                        <h3 className="text-sm font-semibold leading-6 text-gray-900">
+                          <a href={link.href}>
+                            <span className="absolute inset-0"
+                            aria-hidden="true" />
+                              {link.name}                       
+                          </a>
+                        </h3>
+                        <p className="mt-2 text-sm leading-6 text-gray-600">
+                          {link.description}
+                        </p>
+                      </div>
+                      <div className="flex-none self-center">
+                        <span className="inline-block h-5 w-5 text-gray-400">
+                        <LuChevronRight 
+                        aria-hidden="true" />
+                        </span>
+                      </div>
+                    </li>
+                  )
+                })}
               </ul>
+              <div className="mt-5 flex justify-center">
+                <LinkButton showButton={true} link={"/"} />
+              </div>
             </div>
           </main>
 
@@ -89,4 +99,5 @@ import { HiBookOpen,
       </Container>
     )
   }
-  // 1:03:43
+  
+export default NotFound
