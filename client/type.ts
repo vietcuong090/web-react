@@ -25,6 +25,8 @@ export interface ProductProps {
   isNew: boolean;
   images: [string];
   description: number;
+  regularPrice: number;
+  discountedPrice: number;
   colors: [string];
   category: string;
   brand: string;

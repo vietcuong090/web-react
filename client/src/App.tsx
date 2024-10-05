@@ -1,9 +1,10 @@
-import BannerCategories from "./ui/BannerCategories";
-import "react-multi-carousel/lib/styles.css";
-import HomeBanner from "./ui/HomeBanner";
-import Hightlights from "./ui/Hightlights";
-import Categories from "./ui/Categories";
-import ProductList from "./ui/ProductList";
+import BannerCategories from './ui/BannerCategories';
+import 'react-multi-carousel/lib/styles.css';
+import HomeBanner from './ui/HomeBanner';
+import Hightlights from './ui/Hightlights';
+import Categories from './ui/Categories';
+import ProductList from './ui/ProductList';
+import DiscountedBanner from './ui/DiscountedBanner';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Categories />
       {/* ProductList */}
       <ProductList />
-      {/* DiscountedBanner */}
+      <DiscountedBanner />
       {/* Blog */}
     </main>
   );
