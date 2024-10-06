@@ -5,6 +5,7 @@ import AddToCartBtn from './AddToCartBtn';
 import { Button, Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import Formattedprice from './Formattedprice';
 import ProductCardSideNav from './ProductCardSideNav';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   item: ProductProps;
@@ -12,6 +13,8 @@ interface Props {
 
 const ProductCard = ({ item }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigation = useNavigate();
+
   const open = () => {
     setIsOpen(true);
   };
@@ -19,6 +22,10 @@ const ProductCard = ({ item }: Props) => {
     setIsOpen(false);
   };
   const percentage = ((item?.regularPrice - item?.discountedPrice) / item?.regularPrice) * 100;
+
+  const handleProduct = () => {
+    navigation(`/product/${item?._id}`);
+  };
   return (
     <div
       className='border border-gray-200 rounded-lg p-1
@@ -34,6 +41,7 @@ const ProductCard = ({ item }: Props) => {
           save {percentage.toFixed(0)}%
         </span>
         <img
+          onClick={handleProduct}
           src={item?.images[0]}
           alt='productImage'
           className='w-full

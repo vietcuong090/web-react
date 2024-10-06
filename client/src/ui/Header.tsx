@@ -12,7 +12,7 @@ import { CategoryProps } from '../../type';
 
 const bottomNavigation = [
   { title: 'Home', link: '/' },
-  { title: 'Shop', link: '/shop' },
+  { title: 'Shop', link: '/product' },
   { title: 'Cart', link: '/cart' },
   { title: 'Order', link: '/order' },
   { title: 'My Account', link: '/profile' },
@@ -22,6 +22,21 @@ const bottomNavigation = [
 const Header = () => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const endpoint = `${config?.baseUrl}/products`;
+      // console.log("Endpoint:", endpoint);
+      try {
+        const data = await getData(endpoint);
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +51,8 @@ const Header = () => {
     };
     fetchData();
   }, []);
+  console.log('product', products);
+
   return (
     <div className='w-full bg-whiteText md:fixed md:top-0 z-50'>
       <div className='max-w-screen-xl mx-auto h-20 flex items-center justify-between px-4 lg:px-0'>
@@ -179,3 +196,4 @@ const Header = () => {
 };
 
 export default Header;
+//5:00:30

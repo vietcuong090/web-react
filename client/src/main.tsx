@@ -1,21 +1,22 @@
-import ReactDOM from "react-dom/client";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-import App from "./App.tsx";
-import "./index.css";
-import Cancel from "./pages/Cancel.tsx";
-import Cart from "./pages/Cart.tsx";
-import Category from "./pages/Category.tsx";
-import Favorite from "./pages/Favorite.tsx";
-import NotFound from "./pages/NotFound.tsx";
-import Order from "./pages/Order.tsx";
-import Product from "./pages/Product.tsx";
-import Profile from "./pages/Profile.tsx";
-import Success from "./pages/Success.tsx";
-import Layout from "./ui/Layout.tsx";
+import ReactDOM from 'react-dom/client';
+import { Outlet, RouterProvider, ScrollRestoration, createBrowserRouter } from 'react-router-dom';
+import App from './App.tsx';
+import './index.css';
+import Cancel from './pages/Cancel.tsx';
+import Cart from './pages/Cart.tsx';
+import Category from './pages/Category.tsx';
+import Favorite from './pages/Favorite.tsx';
+import NotFound from './pages/NotFound.tsx';
+import Order from './pages/Order.tsx';
+import Product from './pages/Product.tsx';
+import Profile from './pages/Profile.tsx';
+import Success from './pages/Success.tsx';
+import Layout from './ui/Layout.tsx';
 
 const RouterLayout = () => {
   return (
     <Layout>
+      <ScrollRestoration />
       <Outlet />
     </Layout>
   );
@@ -23,65 +24,63 @@ const RouterLayout = () => {
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <RouterLayout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <App />,
       },
       {
-        path: "/product",
+        path: '/product',
         element: <Product />,
       },
       {
-        path: "/product/:id",
+        path: '/product/:id',
         element: <Product />,
       },
       {
-        path: "/category",
+        path: '/category',
         element: <Category />,
       },
       {
-        path: "/catgory/:id",
+        path: '/category/:id',
         element: <Category />,
       },
       {
-        path: "/profile",
+        path: '/profile',
         element: <Profile />,
       },
       {
-        path: "/profile/:id",
+        path: '/profile/:id',
         element: <Profile />,
       },
       {
-        path: "/cart",
+        path: '/cart',
         element: <Cart />,
       },
       {
-        path: "/favorite",
+        path: '/favorite',
         element: <Favorite />,
       },
       {
-        path: "/order",
+        path: '/order',
         element: <Order />,
       },
       {
-        path: "/success",
+        path: '/success',
         element: <Success />,
       },
       {
-        path: "/cancel",
+        path: '/cancel',
         element: <Cancel />,
       },
       {
-        path: "*",
+        path: '*',
         element: <NotFound />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);
