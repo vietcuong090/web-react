@@ -48,7 +48,7 @@ const Pagination = () => {
     setItemOffset(newOffset);
     setItemStart(newStart);
   };
-  console.log('products', products);
+  // console.log('products', products);
 
   return (
     <>

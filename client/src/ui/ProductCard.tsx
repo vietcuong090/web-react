@@ -9,9 +9,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
   item: ProductProps;
+  setSearchText?: any;
 }
 
-const ProductCard = ({ item }: Props) => {
+const ProductCard = ({ item, setSearchText }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigate();
 
@@ -25,6 +26,7 @@ const ProductCard = ({ item }: Props) => {
 
   const handleProduct = () => {
     navigation(`/product/${item?._id}`);
+    setSearchText && setSearchText('');
   };
   return (
     <div
@@ -60,7 +62,7 @@ const ProductCard = ({ item }: Props) => {
           <MdOutlineStarOutline />
           <MdOutlineStarOutline />
         </div>
-        <AddToCartBtn />
+        <AddToCartBtn product={item} />
       </div>
       <Transition appear show={isOpen}>
         <Dialog

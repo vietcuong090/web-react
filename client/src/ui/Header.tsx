@@ -8,7 +8,9 @@ import Container from './Container';
 import { Link } from 'react-router-dom';
 import { config } from '../../config';
 import { getData } from '../lib';
-import { CategoryProps } from '../../type';
+import { CategoryProps, ProductProps } from '../../type';
+import { filter } from 'lodash';
+import ProductCard from './ProductCard';
 
 const bottomNavigation = [
   { title: 'Home', link: '/' },
@@ -23,6 +25,7 @@ const Header = () => {
   const [searchText, setSearchText] = useState('');
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilterdProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +54,13 @@ const Header = () => {
     };
     fetchData();
   }, []);
-  console.log('product', products);
+
+  useEffect(() => {
+    const filterd = products.filter((item: ProductProps) =>
+      item.name.toLocaleLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilterdProducts(filterd);
+  }, [searchText]);
 
   return (
     <div className='w-full bg-whiteText md:fixed md:top-0 z-50'>
@@ -93,6 +102,36 @@ const Header = () => {
             </span>
           )}
         </div>
+        {/* Search product will go here */}
+        {searchText && (
+          <div
+            className='absolute left-0 top-20 w-full mx-auto max-h-[500px]
+            px-10 py-5 bg-white z-20 overflow-y-auto text-black
+            shadow-lg shadow-skyText scrollbar-hide'
+          >
+            {filteredProducts.length > 0 ? (
+              <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5'>
+                {filteredProducts?.map((item: ProductProps) => (
+                  <ProductCard key={item?._id} item={item} setSearchText={setSearchText} />
+                ))}
+              </div>
+            ) : (
+              <div
+                className='py-10 bg-gray-50 w-full flex items-center
+              justify-center border border-gray-600 rounded-md'
+              >
+                <p className='text-xl font-normal'>
+                  Nothing matches with your keywords
+                  <span
+                    className='underline underline-offset-2 decoration-[1px]
+                  text-red-500 font-semibold'
+                  >{`(${searchText})`}</span>
+                  . Plllease try again
+                </p>
+              </div>
+            )}
+          </div>
+        )}
         {/* menubar */}
         <div className='flex items-center gap-x-6 text-2xl'>
           <Link to={'/profile'} className='relative block'>
