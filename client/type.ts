@@ -23,6 +23,7 @@ export interface ProductProps {
   overView: string;
   name: string;
   isNew: boolean;
+  isStock: boolean;
   images: [string];
   description: number;
   regularPrice: number;

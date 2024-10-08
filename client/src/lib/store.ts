@@ -1,9 +1,9 @@
-import { UserType } from './../../type';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firabase';
 import { ProductProps } from '../../type';
+import { set } from 'lodash';
 
 interface CartProduct extends ProductProps {
   quantity: number;
@@ -27,8 +27,8 @@ interface StoreType {
   removeFromCart: (productId: number) => void;
   resetCart: () => void;
   // // favorite
-  // favoriteProduct: CartProduct[];
-  // addToFavorite: (productId: ProductProps) => Promise<void>;
+  favoriteProduct: CartProduct[];
+  addToFavorite: (productId: ProductProps) => Promise<void>;
   // removeFromFavorite: (productId: number) => void;
   // resetFavorite: () => void;
 }
@@ -109,6 +109,19 @@ export const store = create<StoreType>()(
       resetCart: () => {
         set({ cartProduct: [] });
       },
+      addToFavorite: (product: ProductProps) => {
+        return new Promise<void>((resolve) => {
+          set((state: StoreType) => {
+            const isFavorite = state.favoriteProduct.some((item) => item._id);
+            return {
+              favoriteProduct: isFavorite
+                ? state.favoriteProduct.filter((item) => item._id !== product._id)
+                : [...state.favoriteProduct, { ...product }],
+            };
+          });
+          resolve();
+        });
+      },
     }),
     {
       name: 'supergear-storage',
@@ -116,3 +129,4 @@ export const store = create<StoreType>()(
     }
   )
 );
+// 7:18:53

@@ -50,7 +50,7 @@ const ProductCard = ({ item, setSearchText }: Props) => {
       h-full rounded-md object-cover
       group-hover:scale-110 duration-300'
         />
-        <ProductCardSideNav />
+        <ProductCardSideNav product={item} />
       </div>
       <div className='flex flex-col gap-2 pb-2'>
         <h3 className='text-sx uppercase font-semibold text-lightText'>{item?.overView}</h3>
