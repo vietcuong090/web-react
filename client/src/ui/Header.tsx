@@ -27,7 +27,7 @@ const Header = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilterdProducts] = useState([]);
-  const { cartProduct } = store();
+  const { cartProduct, favoriteProduct } = store();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -150,7 +150,7 @@ const Header = () => {
           text-whiteText absolute -top-1 -right-2 text-[9px] rounded-full w-4
           h-4'
             >
-              0
+              {favoriteProduct?.length > 0 ? favoriteProduct?.length : '0'}
             </span>
           </Link>
           <Link to={'/cart'} className='relative block'>

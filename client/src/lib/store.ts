@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firabase';
 import { ProductProps } from '../../type';
-import { set } from 'lodash';
+import { set, filter } from 'lodash';
 
 interface CartProduct extends ProductProps {
   quantity: number;
@@ -29,8 +29,8 @@ interface StoreType {
   // // favorite
   favoriteProduct: CartProduct[];
   addToFavorite: (productId: ProductProps) => Promise<void>;
-  // removeFromFavorite: (productId: number) => void;
-  // resetFavorite: () => void;
+  removeFromFavorite: (productId: number) => void;
+  resetFavorite: () => void;
 }
 
 const customStorage = {
@@ -112,7 +112,9 @@ export const store = create<StoreType>()(
       addToFavorite: (product: ProductProps) => {
         return new Promise<void>((resolve) => {
           set((state: StoreType) => {
-            const isFavorite = state.favoriteProduct.some((item) => item._id);
+            // const isFavorite = state.favoriteProduct.some((item) => item._id);
+            const isFavorite = state.favoriteProduct.some((item) => item._id === product._id);
+
             return {
               favoriteProduct: isFavorite
                 ? state.favoriteProduct.filter((item) => item._id !== product._id)
@@ -121,6 +123,15 @@ export const store = create<StoreType>()(
           });
           resolve();
         });
+      },
+
+      removeFromFavorite: (productId: number) => {
+        set((state: StoreType) => ({
+          favoriteProduct: state.favoriteProduct.filter((item) => item._id !== productId),
+        }));
+      },
+      resetFavorite: () => {
+        set({ favoriteProduct: [] });
       },
     }),
     {

@@ -1,4 +1,4 @@
-import { FaRegEye, FaRegStar } from 'react-icons/fa';
+import { FaRegEye, FaRegStar, FaStar } from 'react-icons/fa';
 import { LuArrowLeftRight } from 'react-icons/lu';
 import { ProductProps } from '../../type';
 import { store } from '../lib/store';
@@ -16,7 +16,6 @@ const ProductCardSideNav = ({ product }: { product?: ProductProps }) => {
 
   const hanleFavorite = () => {
     if (product) {
-      console.log('existring', existringProduct);
       addToFavorite(product).then(() => {
         toast.success(
           existringProduct
@@ -40,7 +39,7 @@ const ProductCardSideNav = ({ product }: { product?: ProductProps }) => {
     text-lg items-center justify-center rounded-full 
     hover:text-white hover:bg-black duration-200'
       >
-        <FaRegStar />
+        {existringProduct ? <FaStar /> : <FaRegStar />}
       </span>
       <span
         className='w-11 h-11 inline-flex text-black

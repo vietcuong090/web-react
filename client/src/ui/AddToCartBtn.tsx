@@ -4,15 +4,18 @@ import { store } from '../lib/store';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa';
+import PriceTag from './PriceTag';
 
 const AddToCartBtn = ({
   className,
   title,
   product,
+  showPrice = true,
 }: {
   className?: string;
   title?: string;
   product?: ProductProps;
+  showPrice?: boolean;
 }) => {
   const [existringProduct, setExistringProduct] = useState<ProductProps | null>(null);
 
@@ -48,9 +51,33 @@ const AddToCartBtn = ({
     'bg-[#f7f7f7] uppercase text-xs py-3 text-center rounded-full font-semibold hover:bg-black hover:text-white hover:scale-105 duration-200 cursor-pointer',
     className
   );
+  const getRegularPrice = () => {
+    if (existringProduct) {
+      if (product) {
+        return product?.regularPrice * existringProduct?.quantity;
+      }
+    } else {
+      return product?.regularPrice;
+    }
+  };
+
+  const getDiscountedPrice = () => {
+    if (existringProduct) {
+      if (product) {
+        return product?.discountedPrice * product?.quantity;
+      }
+    } else {
+      return product?.regularPrice;
+    }
+  };
 
   return (
     <>
+      {showPrice && (
+        <div>
+          <PriceTag regularPrice={getRegularPrice()} discountedPrice={getDiscountedPrice()} />
+        </div>
+      )}
       {existringProduct ? (
         <div
           className='flex self-center items-center
